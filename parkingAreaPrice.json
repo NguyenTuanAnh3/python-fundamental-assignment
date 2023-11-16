@@ -1,0 +1,142 @@
+{
+    "Sunday": [
+        {
+            "start": "08:00",
+            "end": "16:59",
+            "maxStayInHours": "8",
+            "pricePerHour": 2.0
+        },
+        {
+            "start": "17:00",
+            "end": "23:59",
+            "maxStayInHours": "Up to midnight",
+            "pricePerHour": 5.0
+        },
+        {
+            "start": "00:00",
+            "end": "07:59",
+            "maxStayInHours": "",
+            "pricePerHour": 20.0
+        }
+    ],
+    "Monday": [
+        {
+            "start": "08:00",
+            "end": "16:59",
+            "maxStayInHours": "2",
+            "pricePerHour": 10.0
+        },
+        {
+            "start": "17:00",
+            "end": "23:59",
+            "maxStayInHours": "Up to midnight",
+            "pricePerHour": 5.0
+        },
+        {
+            "start": "00:00",
+            "end": "07:59",
+            "maxStayInHours": "",
+            "pricePerHour": 20.0
+        }
+    ],
+    "Tuesday": [
+        {
+            "start": "08:00",
+            "end": "16:59",
+            "maxStayInHours": "2",
+            "pricePerHour": 10.0
+        },
+        {
+            "start": "17:00",
+            "end": "23:59",
+            "maxStayInHours": "Up to midnight",
+            "pricePerHour": 5.0
+        },
+        {
+            "start": "00:00",
+            "end": "07:59",
+            "maxStayInHours": "",
+            "pricePerHour": 20.0
+        }
+    ],
+    "Wednesday": [
+        {
+            "start": "08:00",
+            "end": "16:59",
+            "maxStayInHours": "2",
+            "pricePerHour": 10.0
+        },
+        {
+            "start": "17:00",
+            "end": "23:59",
+            "maxStayInHours": "Up to midnight",
+            "pricePerHour": 5.0
+        },
+        {
+            "start": "00:00",
+            "end": "07:59",
+            "maxStayInHours": "",
+            "pricePerHour": 20.0
+        }
+    ],
+    "Thursday": [
+        {
+            "start": "08:00",
+            "end": "16:59",
+            "maxStayInHours": "2",
+            "pricePerHour": 10.0
+        },
+        {
+            "start": "17:00",
+            "end": "23:59",
+            "maxStayInHours": "Up to midnight",
+            "pricePerHour": 5.0
+        },
+        {
+            "start": "00:00",
+            "end": "07:59",
+            "maxStayInHours": "",
+            "pricePerHour": 20.0
+        }
+    ],
+    "Firday": [
+        {
+            "start": "08:00",
+            "end": "16:59",
+            "maxStayInHours": "2",
+            "pricePerHour": 10.0
+        },
+        {
+            "start": "17:00",
+            "end": "23:59",
+            "maxStayInHours": "Up to midnight",
+            "pricePerHour": 5.0
+        },
+        {
+            "start": "00:00",
+            "end": "07:59",
+            "maxStayInHours": "",
+            "pricePerHour": 20.0
+        }
+    ],
+    "Saturday": [
+        {
+            "start": "08:00",
+            "end": "16:59",
+            "maxStayInHours": "4",
+            "pricePerHour": 3.0
+        },
+        {
+            "start": "17:00",
+            "end": "23:59",
+            "maxStayInHours": "Up to midnight",
+            "pricePerHour": 5.0
+        },
+        {
+            "start": "00:00",
+            "end": "07:59",
+            "maxStayInHours": "",
+            "pricePerHour": 20.0
+        }
+    ]
+}
