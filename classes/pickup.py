@@ -36,6 +36,19 @@ class PickUp(Customer):
     def get_leave_day(self):
         return datetime.datetime.strptime(self.leave_day, "%Y-%m-%d %H:%M")
 
+    def is_check_frequent_parking(self):
+        fre_parking = self.get_customer_information()[FREQUENT_PARKING_NUMBER_TEXT].strip()
+        if(fre_parking != "None"):
+            count = 0
+            weight = {}
+            for i in range(len(fre_parking), 0, -1):
+                weight[i] = fre_parking[count]
+                count += 1
+            cal_sum = sum([ i * int(v) for i, v in weight.items()])
+            if(cal_sum / 11 == int(fre_parking[-1])):
+                return True 
+        return False
+
     def get_range_date(self):
         date = datetime.datetime
         arrival_day = self.get_arrival_day()
@@ -49,6 +62,7 @@ class PickUp(Customer):
         return [day_time, night_time, new_day] 
 
     def get_fee_each_day(self, start_day, end_day, data):
+        is_fre_valid = self.is_check_frequent_parking()
         [day_time, night_time, new_day] = self.split_periods_day(start_day)
         self.bill['date'] = start_day.strftime("%Y-%m-%d")
         self.bill['dayOfWeek'] = DAY_OF_WEEK[start_day.weekday()]
@@ -68,16 +82,20 @@ class PickUp(Customer):
                     sub_time = round((day_time - start_day).seconds/3600)
                     time_remain = sub_time - int(park['maxStayInHours'])
 
+                discount = 1
+                if(is_fre_valid):
+                    discount = 0.9
+
                 self.bill[temp_str] = [
                     {
                         "time": sub_time if sub_time <= 2 else park['maxStayInHours'],
-                        "price_per_hour": sub_time if sub_time == 0 else park['pricePerHour'],
-                        "str_price_per_hour": '' if sub_time == 0 else f'${"{0:.2f}".format(park["pricePerHour"])}/h' 
+                        "price_per_hour": sub_time if sub_time == 0 else park['pricePerHour'] * discount,
+                        "str_price_per_hour": '' if sub_time == 0 else (f'${"{0:.2f}".format(park["pricePerHour"])}/h' + ('' if discount == 1 else f' * {discount}')) 
                     },
                     {
                         "time": 0 if (sub_time == 0 or time_remain <= 0 ) else time_remain,
-                        "price_per_hour": 0 if time_remain <= 0 else park['pricePerHour'] * 2,
-                        "str_price_per_hour": '' if time_remain <= 0 else f'${"{0:.2f}".format(park["pricePerHour"])}/h * 2' 
+                        "price_per_hour": 0 if time_remain <= 0 else park['pricePerHour'] * 2 * discount,
+                        "str_price_per_hour": '' if time_remain <= 0 else (f'${"{0:.2f}".format(park["pricePerHour"])}/h * 2' + ('' if discount == 1 else f' * {discount}')) 
                     }
                 ]
             elif park['start'] == '17:00' and park['end'] == '23:59':
@@ -92,11 +110,16 @@ class PickUp(Customer):
                 else:
                     sub_time = round((night_time - day_time).seconds/3600)
 
+                discount = 1
+                str_price_per_hour = f'${"{0:.2f}".format(park["pricePerHour"])}/h' if sub_time != 0 else ''
+                if(is_fre_valid):
+                    discount = 0.5
+                    str_price_per_hour = f'${"{0:.2f}".format(park["pricePerHour"])}/h * {discount}' if sub_time != 0 else ''
                 self.bill[temp_str] = [
                 {
                     "time": sub_time,
-                    "price_per_hour": park['pricePerHour'] if sub_time != 0 else 0,
-                    "str_price_per_hour": f'${"{0:.2f}".format(park["pricePerHour"])}/h' if sub_time != 0 else ''
+                    "price_per_hour": park['pricePerHour'] * discount if sub_time != 0 else 0,
+                    "str_price_per_hour": str_price_per_hour
                 }
                ]
             else:
@@ -106,11 +129,18 @@ class PickUp(Customer):
                 elif(night_time < start_day < end_day):
                     sub_time = round((end_day - start_day)/3600)
 
+                discount = 1
+                str_price_per_hour = f'${"{0:.2f}".format(park["pricePerHour"])}' if sub_time != 0 else ''
+                if(is_fre_valid):
+                    discount = 0.5
+                    str_price_per_hour = f'${"{0:.2f}".format(park["pricePerHour"])} * {discount}' if sub_time != 0 else ''
+
+
                 self.bill[temp_str] = [
                 {
                     "time": 'N/A' if sub_time != 0 else 0,
-                    "price_per_hour": park['pricePerHour'] if sub_time != 0 else 0,
-                    "str_price_per_hour": f'${"{0:.2f}".format(park["pricePerHour"])}' if sub_time != 0 else ''
+                    "price_per_hour": park['pricePerHour'] * discount if sub_time != 0 else 0,
+                    "str_price_per_hour": str_price_per_hour
                 }
                ]
         

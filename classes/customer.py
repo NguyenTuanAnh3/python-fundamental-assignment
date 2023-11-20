@@ -40,7 +40,7 @@ class Customer():
         return self.available_creadit
 
     def set_available_credit(self, credit):
-        self._available_creadit = self._available_creadit + credit
+        self._available_creadit = round(self._available_creadit + credit, 2)
         return self.available_creadit
     
     def save_customer_credit(self):

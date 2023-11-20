@@ -23,7 +23,7 @@ def park_option():
 
 def pickup_option(data):
     enter_car_identity = input("Please enter your car identity: ") 
-    leave_day = datetime.now().replace(day=19, hour= 20, minute=00, second=0, microsecond=0).strftime("%Y-%m-%d %H:%M")
+    leave_day = datetime.now().replace(second=0, microsecond=0).strftime("%Y-%m-%d %H:%M")
     pick_up = PickUp(car_identity=enter_car_identity, leave_day=leave_day)
     [bills, total] = pick_up.calculate_fee_parking(data)
     create_excel(car_identity=pick_up.car_identity,leave_day=leave_day, bills=bills)

@@ -13,11 +13,11 @@ class History(Customer):
     def set_total_payment(self, addtional_total):
         if not self.check_files_exist(self.path, self.full_path):
             self.total_payment = self.total_payment + addtional_total
-            return self.total_payment
+            return round(self.total_payment,2)
         else:
             with open(self.full_path, 'r') as f:
                 self.total_payment = float(f.readlines()[0].split(":")[1].strip()) + addtional_total
-            return self.total_payment 
+            return round(self.total_payment,2) 
      
     def save_history_customer(self, start_day, leave_day, total_date):
         if not self.check_files_exist(self.path, self.full_path):
