@@ -22,8 +22,20 @@ def park_option():
 
 def pickup_option(data):
     enter_car_identity = input("Please enter your car identity: ") 
-    leave_day = datetime.now().replace(day=15, hour= 19, minute=30, second=0, microsecond=0).strftime("%Y-%m-%d %H:%M")
+    leave_day = datetime.now().replace(day=17, hour= 20, minute=00, second=0, microsecond=0).strftime("%Y-%m-%d %H:%M")
     pick_up = PickUp(car_identity=enter_car_identity, leave_day=leave_day)
     [bills, total] = pick_up.calculate_fee_parking(data)
-    print(f'Your total fee parking: {total}')
     create_excel(car_identity=pick_up.car_identity,leave_day=leave_day, bills=bills)
+    print(f'Total payment: {total}')
+    print(f'Available Credits: {pick_up.get_available_credit()}')
+    while(pick_up.available_creadit < total):
+        print("Your a payment amount not enough")
+        enter_credit = float(input("Please enter a payment amount:"))
+        pick_up.set_available_credit(enter_credit)
+        pick_up.save_customer_credit()
+        
+    if(pick_up.available_creadit >= total):
+        pick_up.done_payment(total)
+        
+
+    

@@ -14,8 +14,8 @@ class PickUp(Customer):
     global FREQUENT_PARKING_NUMBER_TEXT
     global DAY_OF_WEEK
     
-    def __init__(self, car_identity, leave_day):
-        super().__init__(car_identity)
+    def __init__(self, car_identity, leave_day, available_creadit=0.0):
+        super().__init__(car_identity, available_creadit)
         self.leave_day = leave_day
         self.info = {}
         self.bill = {}
@@ -167,4 +167,11 @@ class PickUp(Customer):
             self.get_bills_parking(data=data)
             total = sum([bill['sub_total'] for bill in self.bills])
             return [self.bills, total]
-        
+
+    def done_payment(self, total):
+        self.get_available_credit()
+        self.set_available_credit(-total)
+        print("Payment success")
+        print(f"Available Credits: {self.available_creadit}")
+        self.save_customer_credit()
+        self.delete_customer_parking()
