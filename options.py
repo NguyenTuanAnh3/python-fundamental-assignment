@@ -40,7 +40,9 @@ def pickup_option(data):
         start_day_his = pick_up.get_arrival_day().strftime("%Y-%m-%d %H:%M")
         leave_day_his = pick_up.get_leave_day().strftime("%Y-%m-%d %H:%M")
         his = History(pick_up.car_identity, pick_up.available_creadit)
+        his.set_total_payment(total)
         his.save_history_customer(start_day_his, leave_day_his, total)
+        pick_up.delete_customer_parking()
 
 def history_option():
     enter_car_identity = input("Please enter your car identity: ") 
