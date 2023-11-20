@@ -20,7 +20,7 @@ class Park(Customer):
     def save_customer_information(self):
         path_file = f'{self.path + self.car_identity}.txt'
         try:
-            if not self.is_customer_information_exist():
+            if not self.check_files_exist(self.path, self.full_path):
                 create_file = open( path_file, 'x')
                 try:
                     with open(path_file, 'w') as f:

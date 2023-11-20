@@ -158,7 +158,7 @@ class PickUp(Customer):
 
     def calculate_fee_parking(self, data):
         try:
-            if(self.is_customer_information_exist() == False):
+            if(self.check_files_exist(self.path, self.full_path) == False):
                 raise Exception('Your car identity not found')
         except Exception:
             print("Your car identity not found")
@@ -174,4 +174,3 @@ class PickUp(Customer):
         print("Payment success")
         print(f"Available Credits: {self.available_creadit}")
         self.save_customer_credit()
-        self.delete_customer_parking()

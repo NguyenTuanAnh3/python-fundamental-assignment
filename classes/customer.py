@@ -17,11 +17,11 @@ class Customer():
     @property
     def available_creadit(self):
         return self._available_creadit
-
-    def is_customer_information_exist(self):
-        if not os.path.isdir(self.path):
-            os.makedirs(self.path)        
-        return os.path.exists(self.full_path)
+    
+    def check_files_exist(self, path, full_path):
+        if not os.path.isdir(path):
+            os.makedirs(path)        
+        return os.path.exists(full_path)
         
     def get_customer_information(self):
         with open(self.full_path, 'r') as f:
@@ -31,7 +31,7 @@ class Customer():
         return self.info
 
     def get_available_credit(self):
-        if not self.check_credit_exist():
+        if not self.check_files_exist(self.path_credit, self.full_path_credit):
             return self.available_creadit
             
         with open(self.full_path_credit, 'r') as f:
@@ -43,13 +43,8 @@ class Customer():
         self._available_creadit = self._available_creadit + credit
         return self.available_creadit
     
-    def check_credit_exist(self):
-        if not os.path.isdir(self.path_credit):
-            os.makedirs(self.path_credit)      
-        return os.path.exists(self.full_path_credit)
-
     def save_customer_credit(self):
-        if not self.check_credit_exist():
+        if not self.check_files_exist(self.path_credit, self.full_path_credit):
             create_file = open(self.full_path_credit, 'x')
             create_file.close()
         
@@ -57,7 +52,7 @@ class Customer():
             f.write(f"Your available credit: {self.available_creadit}")
 
     def delete_customer_parking(self):
-        if not self.is_customer_information_exist():
+        if not self.check_files_exist(self.path, self.full_path):
             return
         os.remove(self.full_path)
     

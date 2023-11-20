@@ -1,5 +1,6 @@
 from classes.park import Park
 from classes.pickup import PickUp
+from classes.history import History
 from create_excel import create_excel
 from datetime import datetime
 
@@ -22,7 +23,7 @@ def park_option():
 
 def pickup_option(data):
     enter_car_identity = input("Please enter your car identity: ") 
-    leave_day = datetime.now().replace(day=17, hour= 20, minute=00, second=0, microsecond=0).strftime("%Y-%m-%d %H:%M")
+    leave_day = datetime.now().replace(day=19, hour= 20, minute=00, second=0, microsecond=0).strftime("%Y-%m-%d %H:%M")
     pick_up = PickUp(car_identity=enter_car_identity, leave_day=leave_day)
     [bills, total] = pick_up.calculate_fee_parking(data)
     create_excel(car_identity=pick_up.car_identity,leave_day=leave_day, bills=bills)
@@ -36,6 +37,16 @@ def pickup_option(data):
         
     if(pick_up.available_creadit >= total):
         pick_up.done_payment(total)
+        start_day_his = pick_up.get_arrival_day().strftime("%Y-%m-%d %H:%M")
+        leave_day_his = pick_up.get_leave_day().strftime("%Y-%m-%d %H:%M")
+        his = History(pick_up.car_identity, pick_up.available_creadit)
+        his.save_history_customer(start_day_his, leave_day_his, total)
+
+def history_option():
+    enter_car_identity = input("Please enter your car identity: ") 
+    his = History(enter_car_identity)
+    his.get_history_customer()
+
         
 
     
