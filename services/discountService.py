@@ -1,0 +1,2 @@
+class DiscountService:
+    pass

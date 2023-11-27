@@ -1,0 +1,2 @@
+class ParkService:
+    pass
