@@ -1,7 +1,7 @@
 from models.customer import Customer
 from services.customerService import CustomerService
 from validator.customer import CustomerValidator
-from config.constants import customer_dir 
+from config.constants import CUSTOMER_DIR 
 class ParkService:
 
     def __init__(self):

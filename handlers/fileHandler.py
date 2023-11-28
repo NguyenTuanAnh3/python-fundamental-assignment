@@ -1,9 +1,10 @@
 import os
-from config.constants import store_dir
+import json
+from config.constants import STORE_DIR
 
 class FileHandler:
     
-    def __init__(self, direct, car_identity):
+    def __init__(self, direct='', car_identity=''):
         self.direct = direct
         self.path = f'{direct}{car_identity}.txt'
 
@@ -11,14 +12,19 @@ class FileHandler:
         return os.path.exists(self.path)
 
     def create_file(self):
-        if not os.path.isdir(store_dir):
-            os.mkdir(store_dir)
+        if not os.path.isdir(STORE_DIR):
+            os.mkdir(STORE_DIR)
 
         if not os.path.isdir(self.direct):
             os.mkdir(self.direct)
             
         f = open(self.path, 'x')
         f.close()
+
+    def read_file(self):
+        with open(self.path, 'r', encoding='utf-8') as f:
+            data = f.readlines()
+        return data
 
     def write_file(self, **kwargs):
         with open(self.path, 'w', encoding='utf-8') as f:
@@ -29,3 +35,8 @@ class FileHandler:
         if not self.check_files_exist():
             self.create_file()
         self.write_file(**kwargs)
+
+    def get_information_json(self):
+        with open('parkingAreaPrice.json') as f:
+            data = json.load(f)
+        return data

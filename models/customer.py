@@ -1,5 +1,5 @@
 import datetime
-
+from handlers.dateHandler import DateHandler
 class Customer:
 
     def __init__(self, car_identity, frequent_parking_number, available_creadit = 0.0, leave_day = None):
@@ -8,6 +8,7 @@ class Customer:
         self._available_creadit = available_creadit
         self._arrival_time = None
         self._leave_day = leave_day
+        self.dateHandler = DateHandler()
 
     @property
     def car_identity(self):
@@ -35,7 +36,7 @@ class Customer:
     
     @property
     def arrival_time(self):
-        self._arrival_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        self._arrival_time = self.dateHandler.convert_date_to_string(datetime.datetime.now())
         return self._arrival_time
     
     @property
