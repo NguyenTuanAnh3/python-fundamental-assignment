@@ -46,7 +46,7 @@ class BillDateHandler(Bill):
 
     def night_time_handler(self, **kwargs):
         temp_str = kwargs['start'] + ' - ' + kwargs['end']
-        if( self.day_time < self.start_day < self.end_day and self.end_day < self.night_time):
+        if( self.day_time < self.start_day <= self.end_day and self.end_day < self.night_time):
             sub_time = round((self.end_day - self.start_day).seconds/3600)
         elif(self.day_time < self.start_day):
             sub_time = round((self.night_time - self.start_day).seconds/3600)

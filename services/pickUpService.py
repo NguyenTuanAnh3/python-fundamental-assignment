@@ -11,7 +11,7 @@ class PickUpService:
         self.car_identity = self.customer_validator.check_car_identity_valid(input("Please enter your car identity: "))
         self.customer_service = CustomerService(self.car_identity)
         self.customer_service.check_customer_pickup()
-        self.leave_day = datetime.datetime.now().replace(day=23, hour=19, minute=30).strftime("%Y-%m-%d %H:%M")
+        self.leave_day = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
         self.billService = BillService(self.car_identity, self.leave_day)
         self.bills = []
         self.total = 0
@@ -26,7 +26,7 @@ class PickUpService:
         self.customer_service.payment(self.total)
         self.history_service.set_total_payment(self.total)
         self.history_service.save_customer_history(start_day=start_day, leave_day=self.leave_day, available_creadit= self.customer_service.available_creadit, total=self.total)
-        # self.customer_service.remove_customer()
+        self.customer_service.remove_customer()
 
     def handle_pickup(self):
         [self.bills, self.total] = self.billService.get_bills_and_total_fee_parking()
