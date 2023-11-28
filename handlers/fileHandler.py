@@ -40,3 +40,6 @@ class FileHandler:
         with open('parkingAreaPrice.json') as f:
             data = json.load(f)
         return data
+
+    def remove_file(self):
+        os.remove(self.path)

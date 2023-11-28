@@ -1,7 +1,7 @@
 import datetime
 from models.customer import Customer
 from handlers.fileHandler import FileHandler
-from config.constants import CUSTOMER_DIR, ARRIVAL_TIME_TEXT
+from config.constants import CUSTOMER_DIR, ARRIVAL_TIME_TEXT, CREDITS_DIR
 
 class CustomerService(Customer):
     
@@ -36,7 +36,6 @@ class CustomerService(Customer):
             if(0 <= arrival_time.hour < 8):
                 raise Exception("OOPs, arrival time went wrong")
         except Exception as e:
-            print(e)
             exit()
         else:
             return arrival_time
@@ -45,4 +44,28 @@ class CustomerService(Customer):
         if not self.file_handler.check_files_exist():
             raise Exception('Your car identity not found')
 
+    def set_available_credit(self, credit):
+        self._available_creadit = round(self._available_creadit + credit, 2)
+        return self.available_creadit
     
+    def save_customer_credit(self):
+        self.file_handler.handle_file(available_creadit = self.available_creadit)
+
+    def get_customer_available_credit(self):
+        self.file_handler = FileHandler(CREDITS_DIR, self.car_identity)
+        if not self.file_handler.check_files_exist():
+            return self.available_creadit
+        
+        data = self.file_handler.read_file()
+        self._available_creadit = float(data[0].split(':')[1].strip())
+        return self.available_creadit
+
+    def payment(self, total):
+        self.set_available_credit(-total)
+        print("Payment success")
+        print(f"Available Credits: {self.available_creadit}")
+        self.save_customer_credit()
+
+    def remove_customer(self):
+        self.file_handler = FileHandler(CUSTOMER_DIR,car_identity=self.car_identity)
+        self.file_handler.remove_file()
