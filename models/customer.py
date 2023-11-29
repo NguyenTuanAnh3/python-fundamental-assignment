@@ -1,10 +1,12 @@
 import datetime
 from handlers.dateHandler import DateHandler
+from validator.customer import CustomerValidator
 class Customer:
 
     def __init__(self, car_identity, frequent_parking_number, available_creadit = 0.0, leave_day = None):
-        self._car_identity = car_identity
-        self._frequent_parking_number = frequent_parking_number
+        self.customer_validator = CustomerValidator()
+        self._car_identity = self.customer_validator.check_car_identity_valid(car_identity)
+        self._frequent_parking_number = self.customer_validator.check_frequent_parking_number_valid(frequent_parking_number)
         self._available_creadit = available_creadit
         self._arrival_time = None
         self._leave_day = leave_day
