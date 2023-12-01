@@ -16,11 +16,15 @@ class TestCustomerValidator:
         with pytest.raises(Exception) as e:
             self.customer_valid.check_car_identity_valid(car_identity=car_identity) 
 
-    def check_frequent_parking_number_valid_right(self):
+    def test_check_frequent_parking_number_valid_right(self):
         frequent_parking_number = 11111
         assert self.customer_valid.check_frequent_parking_number_valid(frequent_parking_number=frequent_parking_number) == 11111
 
-    def check_frequent_parking_number_valid_right(self):
+    def test_check_frequent_parking_number_valid_right(self):
         frequent_parking_number = 111111 
         with pytest.raises(Exception) as e:
             assert self.customer_valid.check_frequent_parking_number_valid(frequent_parking_number=frequent_parking_number) == 11111
+    
+    def test_check_frequent_parking_number_is_None(self):
+        frequent_parking_number = None
+        assert self.customer_valid.check_frequent_parking_number_valid(frequent_parking_number=frequent_parking_number) == None

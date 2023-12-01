@@ -9,7 +9,7 @@ Steps to install and run program: <br>
 
 2: Install packet openpyxl and pytest
 
-    pip install openpyxl pytest
+    pip install openpyxl pytest coverage
 
 3: Run command
 
@@ -18,6 +18,11 @@ Steps to install and run program: <br>
 4: if you want to deavtivate environment just:
 
     deactive
+
+5: run unit test
+
+    coverage run -m pytest tests/<folder_name>/test_*.py
+    coverage report -m
 
 ## EXPLAIN SOURCE CODE
 
@@ -69,3 +74,13 @@ The customer will need to input **_car identity_**
 System will export file and stored history information:
 
 ![Alt text](image_readme/image-6.png)
+
+## Unit Test
+
+Unit Test for Models
+
+![Alt text](image_readme/image_test_model.png)
+
+Unit Test for Validator
+
+![Alt text](image_readme/image_test_validto.png)

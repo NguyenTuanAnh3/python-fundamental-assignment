@@ -21,9 +21,9 @@ class TestBill:
         assert len(self.bill.bills) == 0
 
     def test_bills_setter(self):
-        self.bill.bills.append({
+        self.bill.bills = [{
             'test': 1
-        })
+        }]
         assert self.bill.bills[0]['test'] == 1
 
 

@@ -1,4 +1,5 @@
 from models.customer import Customer
+import datetime
 import pytest
 
 class TestCustomer:
@@ -34,3 +35,16 @@ class TestCustomer:
     def test_constructor_wrong_2(self):
         with pytest.raises(Exception) as ex:
             self.cust = Customer("49A-10071", '1232324', 1000)
+
+    
+    def test_leave_day_getter(self):
+        assert self.cust.leave_day == None
+
+    def test_leave_day_setter(self):
+        self.cust.leave_day = datetime.datetime.strptime("2023-11-30", "%Y-%m-%d").replace(hour=0, second=0, minute=0)
+        assert str(self.cust.leave_day) == '2023-11-30 00:00:00'
+
+    def test_arrival_time_getter(self):
+        today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        assert self.cust.arrival_time == today
+

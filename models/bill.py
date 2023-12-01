@@ -18,7 +18,7 @@ class Bill:
     
     @bills.setter
     def bills(self, bills):
-        self._bills = self._bills
+        self._bills = bills
     
     
     
